@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(MaterialApp(
@@ -13,9 +14,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String resultado = "Resultato";
-  String equacao = "";
-  double n1, n2;
+  double resultado = 0;
+  String visor = "";
+  String equacao2 = "";
+  double n1=null, n2 = null;
+  String n1String, n2String;
+  double memoria = null;
+  String operacao;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +34,40 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Container(
                 height: 200,
-                //color: Colors.red,
-                child: Text(
-                  equacao,
-                  style: TextStyle(fontSize: 50),
+                child: Column(
+                  children: <Widget>[
+                    Row
+                      (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        operacao != "raiz" ? Text("") : Image.network("https://img.icons8.com/ios/2x/square-root-filled.png"),
+                        Text(visor, style: TextStyle(fontSize: 50),)
+                      ],
+                    ),
+
+                    GestureDetector(
+                      onLongPress: (){
+                        setState(() {
+                          if(resultado != 0) {
+                            memoria = resultado;
+                          }
+                        });
+
+                      },
+                      child: Text(
+                        resultado.toString(), style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+
+                    memoria != null ? Text(
+                      "Memoria: "+memoria.toString(), style: TextStyle(fontSize: 25),
+                    ) : Text(
+                      "", style: TextStyle(fontSize: 10),
+                    )
+                  ],
                 ),
+                //color: Colors.red,
+
               ),
               Row(
                 mainAxisAlignment:MainAxisAlignment.center,
@@ -41,7 +75,9 @@ class _HomeState extends State<Home> {
                     FlatButton(
                         onPressed: () {
                           setState(() {
-                            equacao += "7";
+                            visor += "7";
+                            equacao2 += "7";
+
                           });
                         },
                         child: Text(
@@ -51,7 +87,9 @@ class _HomeState extends State<Home> {
                     FlatButton(
                         onPressed: () {
                           setState(() {
-                            equacao += "8";
+                            visor += "8";
+                            equacao2 += "8";
+
                           });
                         },
                         child: Text(
@@ -61,7 +99,9 @@ class _HomeState extends State<Home> {
                     FlatButton(
                         onPressed: () {
                           setState(() {
-                            equacao += "9";
+                            visor += "9";
+                            equacao2 += "9";
+
                           });
                         },
                         child: Text(
@@ -71,15 +111,24 @@ class _HomeState extends State<Home> {
                     GestureDetector(
                       onLongPress: () {
                         setState(() {
-                          equacao = "";
+                          visor = "";
+                          resultado = 0;
+                          n1 = null;
+                          equacao2 = "";
+                          operacao ="";
+                          memoria = null;
                         });
                       },
                       child: FlatButton(
                           onPressed: () {
                             setState(() {
-                              if (equacao.length > 0) {
-                                equacao =
-                                    equacao.substring(0, equacao.length - 1);
+                              if (visor.length > 0) {
+                                visor = visor.substring(0, visor.length - 1);
+                                if(equacao2 != "")
+                                  equacao2 = equacao2.substring(0, equacao2.length - 1);
+                              }
+                              if(n1 != null && equacao2 != "" && equacao2 == ""){
+                                equacao2 = "";
                               }
                             });
                           },
@@ -94,45 +143,58 @@ class _HomeState extends State<Home> {
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "4";
+                          visor += "4";
+                          equacao2 += "4";
+
                         });
                       },
                       child: Text(
                         "4",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "5";
+                          visor += "5";
+                          equacao2 += "5";
+
                         });
                       },
                       child: Text(
                         "5",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "6";
+                          visor += "6";
+                          equacao2 += "6";
                         });
                       },
                       child: Text(
                         "6",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          if(equacao.length <= 0){
-                          }
-                          else
-                            equacao += "+";
+                          print(n1);
+                          print(equacao2);
+                          print(operacao);
+                          print(resultado);
+                         if(n1 == null && equacao2 != ""){
+                           visor +="+";
+                           n1 = double.parse(equacao2);
+                           operacao = "+";
+                           equacao2 = "";
+                         }else{
+
+                         }
                         });
                       },
                       child: Icon(
                         Icons.add,
-                        size: 50,
+                        size: 40,
                       )),
                 ],
               ),
@@ -141,42 +203,55 @@ class _HomeState extends State<Home> {
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "1";
+                          visor += "1";
+                          equacao2 += "1";
+
                         });
                       },
                       child: Text(
                         "1",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "2";
+                          visor += "2";
+                          equacao2 += "2";
+
                         });
                       },
                       child: Text(
                         "2",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "3";
+                          visor += "3";
+                          equacao2 += "3";
+
                         });
                       },
                       child: Text(
                         "3",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "-";
+                          if(n1 == null && equacao2 != ""){
+                            visor +="-";
+                            n1 = double.parse(equacao2);
+                            operacao = "-";
+                            equacao2 = "";
+                          }else{
+
+                          }
                         });
                       },
                       child: Text(
                         "-",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                 ],
               ),
@@ -185,76 +260,206 @@ class _HomeState extends State<Home> {
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += ",";
+                          if(equacao2 != ""){
+                            equacao2 += ".";
+                            visor += ".";
+                          }
+
                         });
                       },
                       child: Text(
-                        ",",
-                        style: TextStyle(fontSize: 50),
+                        ".",
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "0";
+                          equacao2 += "0";
+                          visor += "0";
                         });
                       },
                       child: Text(
                         "0",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "=";
+                          print(n1);
+                          print(operacao);
+                          print(equacao2);
+                          if(operacao == "+")
+                            {
+                              resultado = 0;
+                              resultado = n1 + double.parse(equacao2);
+                              operacao = "";
+                              visor = "";
+                              n1 = null;
+                              equacao2 = "";
+                            }
+                          if(operacao ==  "raiz"){
+                            if(equacao2 != null)
+                              {
+                                resultado = 0;
+                                resultado = sqrt(double.parse(equacao2));
+                                operacao = "";
+                                visor = "";
+                                n1 = null;
+                                equacao2 = "";
+                              }
+                          }
+                          if(operacao ==  "-"){
+                            if(equacao2 != null)
+                            {
+                              resultado = 0;
+                              resultado = n1 - double.parse(equacao2);
+                              operacao = "";
+                              visor = "";
+                              n1 = null;
+                              equacao2 = "";
+                            }
+                          }
+                          if(operacao ==  "*"){
+                            if(equacao2 != null)
+                            {
+                              resultado = 0;
+                              resultado = n1 * double.parse(equacao2);
+                              operacao = "";
+                              visor = "";
+                              n1 = null;
+                              equacao2 = "";
+                            }
+                          }
+                          if(operacao ==  "/"){
+                            if(equacao2 != null)
+                            {
+                              resultado = 0;
+                              resultado = n1 / double.parse(equacao2);
+                              operacao = "";
+                              visor = "";
+                              n1 = null;
+                              equacao2 = "";
+                            }
+                          }
+                          if(operacao == "exp"){
+                            if(equacao2 != null){
+                              resultado = 0;
+                              resultado = pow(double.parse(equacao2), 2);
+                              operacao = "";
+                              visor = "";
+                              n1 = null;
+                              equacao2 = "";
+                            }
+                          }
+                        print(resultado);
                         });
                       },
                       child: Text(
                         "=",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "X";
+                          if(n1 == null && equacao2 != ""){
+                            visor +="*";
+                            n1 = double.parse(equacao2);
+                            operacao = "*";
+                            equacao2 = "";
+                          }else{
+
+                          }
                         });
                       },
                       child: Text(
-                        "X",
-                        style: TextStyle(fontSize: 50),
+                        "*",
+                        style: TextStyle(fontSize: 40),
                       )),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "M+";
+                          if(n1 == null){
+                            if(equacao2 != "")
+                              memoria = double.parse(equacao2);
+                          }else{
+                            memoria = n1;
+                          }
+
                         });
                       },
                       child: Text(
                         "M+",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "Mc";
+                          if(memoria != null){
+                            equacao2 = memoria.toString();
+                            visor = memoria.toString();
+                            operacao = "";
+                            n1 = null;
+                          }
                         });
                       },
                       child: Text(
                         "Mc",
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: 40),
                       )),
+
                   FlatButton(
                       onPressed: () {
                         setState(() {
-                          equacao += "raiz";
+                          if(n1 == null && equacao2 != ""){
+                            visor +="/";
+                            n1 = double.parse(equacao2);
+                            operacao = "/";
+                            equacao2 = "";
+                          }else{
+
+                          }
                         });
                       },
-                      child: Text("RAIZ")),
+                      child: Text("/", style: TextStyle(fontSize: 40),)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          if(equacao2 == "")
+                            {
+                              visor += "";
+                              operacao = "raiz";
+                            }
+
+                        });
+                      },
+                      child: Image.network("https://img.icons8.com/ios/2x/square-root-filled.png"),
+                      ),
+                  FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          if(equacao2 != "")
+                          {
+                            visor += "²";
+                            operacao = "exp";
+                          }
+
+                        });
+                      },
+                      child: Text("X²", style: TextStyle(fontSize: 60),)
+                  ),
                 ],
               )
+
             ],
           ),
         ));
