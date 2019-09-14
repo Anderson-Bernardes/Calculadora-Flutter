@@ -1,6 +1,6 @@
-# calculadora
+# calculadora em Flutter
 
-Calculadora com operações básicas
+Calculadora em Dart com Flutter que faz as operações de soma, subtração, divisão, multiplicação, exponenciação e raiz.
 
 ## Getting Started
 
