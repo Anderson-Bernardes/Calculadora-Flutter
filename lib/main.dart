@@ -70,8 +70,18 @@ class _CalculadoraState extends State<Calculadora> {
                   children: <Widget>[
                     operacao != "raiz"
                         ? Text("")
-                        : Image.network(
-                            "https://img.icons8.com/ios/2x/square-root-filled.png"),
+                        :
+                    Container(
+                      width: 90.0,
+                      height: 90.0,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: AssetImage('imagens/raiz.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                     Text(
                       visor,
                       style: TextStyle(fontSize: 50),
@@ -451,8 +461,17 @@ class _CalculadoraState extends State<Calculadora> {
                     }
                   });
                 },
-                child: Image.network(
-                    "https://img.icons8.com/ios/2x/square-root-filled.png"),
+                child: Container(
+                  width: 90.0,
+                  height: 90.0,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                      image: AssetImage('imagens/raiz.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
               FlatButton(
                   onPressed: () {
