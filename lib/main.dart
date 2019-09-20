@@ -487,7 +487,17 @@ class _CalculadoraState extends State<Calculadora> {
                     style: TextStyle(fontSize: 60),
                   )),
             ],
-          )
+          ),
+          RaisedButton(
+            child: Text(
+              'Informações',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+              color: Colors.blueAccent,
+              onPressed:  (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>TelaInfos(resultado)));
+              }
+          ),
         ],
       ),
     );

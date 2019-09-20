@@ -12,7 +12,10 @@ class TelaInfos extends StatefulWidget {
 class _TelaInfosState extends State<TelaInfos> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+
+    return Scaffold(
+      body:
+      SingleChildScrollView(
       child:  Container(
 
         child: Column(
@@ -49,7 +52,7 @@ class _TelaInfosState extends State<TelaInfos> {
         ),
 
       ),
-    );
+    ),);
 
   }
 }
